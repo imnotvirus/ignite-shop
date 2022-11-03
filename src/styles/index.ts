@@ -27,4 +27,7 @@ export const {
       "2xl": "1.875rem",
     },
   },
+  media: {
+    mobile: "(max-width: 768px)",
+  },
 });

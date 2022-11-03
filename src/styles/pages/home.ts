@@ -1,14 +1,15 @@
+import Link from "next/link";
 import { styled } from "..";
 
 export const HomeContainer = styled("main", {
   display: "flex",
   width: "100%",
   marginLeft: "auto",
-  maxWidth: "calc(100vw - ((100vw - 1180px) /2 ))",
+  // maxWidth: "calc(100vw - ((100vw - 1180px) /2 ))",
   minHeight: 656,
 });
 
-export const Product = styled("a", {
+export const Product = styled(Link, {
   background: "linear-gradient(180deg, #1ea483 0%, #7465d4 100%)",
   borderRadius: 8,
   //padding: "0.25rem",
@@ -19,8 +20,16 @@ export const Product = styled("a", {
   alignItems: "center",
   justifyContent: "center",
   overflow: "hidden",
-  img: {
-    objectFit: "cover",
+  figure: {
+    maxWidth: "50%",
+    width: "100%",
+    height: "76%",
+    overflow: " hidden",
+    /* border: none; */
+    position: "relative",
+    img: {
+      objectFit: "cover",
+    },
   },
   footer: {
     position: "absolute",
@@ -43,6 +52,7 @@ export const Product = styled("a", {
 
     strong: {
       fontSize: "$lg",
+      color: "$gray100",
     },
     span: {
       fontSize: "$xl",
@@ -54,6 +64,55 @@ export const Product = styled("a", {
     footer: {
       opacity: 1,
       transform: "translateY(0)",
+    },
+  },
+
+  "@mobile": {
+    figure: {
+      maxWidth: "100%",
+    },
+    footer: {
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "1rem",
+      gap: "1rem",
+    },
+  },
+  variants: {
+    showing: {
+      true: {
+        footer: {
+          opacity: 1,
+          transform: "translateY(0)",
+        },
+      },
+    },
+  },
+});
+
+export const Navigator = styled("button", {
+  position: "absolute",
+  cursor: "pointer",
+  zIndex: 9999,
+  height: "100%",
+  width: "24%",
+  border: "none",
+  justifyContent: "center",
+  alignItems: "center",
+  color: "#fff",
+  variants: {
+    orientation: {
+      left: {
+        left: 0,
+        background:
+          "linear-gradient(270deg, rgba(18, 18, 20, 0) 0%, rgba(18, 18, 20, 0.75) 100%)",
+      },
+      right: {
+        right: 0,
+        background:
+          "linear-gradient(90deg, rgba(18, 18, 20, 0) 0%, rgba(18, 18, 20, 0.75) 100%)",
+      },
     },
   },
 });
