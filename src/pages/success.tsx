@@ -39,10 +39,25 @@ export const getServerSideProps: GetServerSideProps<
   { session_id: string }
 > = async ({ query }) => {
   const sessionId = String(query.session_id);
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ["line_items", "line_items.data.price.product"],
+    });
 
-  console.log(sessionId);
+    const customerName = session.customer_details?.name;
+    const product = session.line_items?.data[0]?.price
+      ?.product as Stripe.Product;
 
-  if (sessionId === "undefined") {
+    return {
+      props: {
+        customerName,
+        product: {
+          name: product.name,
+          imageUrl: product.images[0],
+        },
+      },
+    };
+  } catch (error) {
     return {
       redirect: {
         destination: "/",
@@ -50,21 +65,4 @@ export const getServerSideProps: GetServerSideProps<
       },
     };
   }
-
-  const session = await stripe.checkout.sessions.retrieve(sessionId, {
-    expand: ["line_items", "line_items.data.price.product"],
-  });
-
-  const customerName = session.customer_details?.name;
-  const product = session.line_items?.data[0]?.price?.product as Stripe.Product;
-
-  return {
-    props: {
-      customerName,
-      product: {
-        name: product.name,
-        imageUrl: product.images[0],
-      },
-    },
-  };
 };
