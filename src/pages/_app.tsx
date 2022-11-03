@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import Image from "next/image";
+import Link from "next/link";
 import logoSvg from "../assets/logo.svg";
 import { globalStyles } from "../styles/global";
 import { Container, Header } from "../styles/pages/app";
@@ -8,7 +9,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Container>
       <Header>
-        <Image src={logoSvg} alt="Ignite shop" />
+        <Link href="/">
+          <Image src={logoSvg} alt="Ignite shop" />
+        </Link>
       </Header>
       <Component {...pageProps} />
     </Container>
